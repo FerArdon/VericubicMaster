@@ -294,6 +294,17 @@
       Android 8+ · Prueba Demo 10 días · Sin registro
     </p>
 
+    <div style="display:flex; gap:36px; margin-top:28px; flex-wrap:wrap; justify-content:center;">
+      <div style="text-align:center;">
+        <div style="font-size:1.9rem; font-weight:800; color:#fff;" id="counter-visitas">—</div>
+        <div style="font-size:.8rem; color:rgba(255,255,255,0.6);">Visitas al sitio</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:1.9rem; font-weight:800; color:#fff;" id="counter-descargas">—</div>
+        <div style="font-size:.8rem; color:rgba(255,255,255,0.6);">Descargas</div>
+      </div>
+    </div>
+
     <div class="hero-screen">
       <div class="screen-bar">
         <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
@@ -619,17 +630,13 @@
     SEDCAF – Servicios de Consultoría y Asesoría Forestal · Honduras<br>
     Ing. Fernando Rafael Ardón Rodríguez<br>
     <a href="https://ferardon.github.io/sedcaf/">SEDCAF</a> ·
-    Desarrollado con Python + Flet · © 2026 SEDCAF<br>
-    <span style="font-size:13px;opacity:.7;">
-      👁️ <span id="counter-visitas">—</span> visitas ·
-      ⬇️ <span id="counter-descargas">—</span> descargas
-    </span>
+    Desarrollado con Python + Flet · © 2026 SEDCAF
   </p>
 </footer>
 
 <script>
-  // Contador de visitas gratuito (countapi.xyz)
-  fetch('https://api.countapi.xyz/hit/ferardon.github.io-vericubicmaster/visits')
+  // Contador de visitas gratuito (abacus)
+  fetch('https://abacus.jasoncameron.dev/hit/ferardon.github.io-vericubicmaster/visits')
     .then(r => r.json())
     .then(data => {
       var el = document.getElementById('counter-visitas');
