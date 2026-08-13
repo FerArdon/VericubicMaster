@@ -8,6 +8,16 @@
 <link rel="icon" href="assets/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZHC5ZTKXG7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZHC5ZTKXG7');
+</script>
+
 <style>
   :root {
     --verde:    #2E7D32;
@@ -277,7 +287,7 @@
     <h1>Cubicación forestal<br><span>profesional</span>, en tu bolsillo.</h1>
     <p><strong style="color:rgba(255,255,255,0.95)">VERICUBIC MASTER</strong> (Cubicador Forestal) es la app Android para ingenieros forestales, técnicos y peritos en Honduras: inventario forestal estadístico, cubicación de árboles y trozas, madera aserrada y captura GPS de campo — con las fórmulas oficiales ICF/COHDEFOR, sin necesidad de internet.</p>
     <div class="hero-btns">
-      <a href="https://github.com/FerArdon/VericubicMaster/releases/latest" class="btn-primary">⬇️ Descargar APK Gratis</a>
+      <a href="https://github.com/FerArdon/VericubicMaster/releases/latest" class="btn-primary" onclick="gtag('event','download_click',{product:'VericubicMaster', location:'hero'})">⬇️ Descargar APK Gratis</a>
       <a href="#precios" class="btn-ghost">Ver Precios →</a>
     </div>
     <p style="margin-top:14px; font-size:13px; color:rgba(255,255,255,0.5);">
@@ -338,7 +348,7 @@
       </div>
     </div>
     <div style="text-align:center;">
-      <a href="https://github.com/FerArdon/VericubicMaster/releases/latest" style="display:inline-flex; align-items:center; gap:10px; background:var(--verde); color:white; padding:16px 36px; border-radius:12px; font-size:17px; font-weight:700; text-decoration:none; box-shadow: 0 4px 20px rgba(46,125,50,0.3); transition: background 0.2s;" onmouseover="this.style.background='var(--verde-d)'" onmouseout="this.style.background='var(--verde)'">
+      <a href="https://github.com/FerArdon/VericubicMaster/releases/latest" style="display:inline-flex; align-items:center; gap:10px; background:var(--verde); color:white; padding:16px 36px; border-radius:12px; font-size:17px; font-weight:700; text-decoration:none; box-shadow: 0 4px 20px rgba(46,125,50,0.3); transition: background 0.2s;" onmouseover="this.style.background='var(--verde-d)'" onmouseout="this.style.background='var(--verde)'" onclick="gtag('event','download_click',{product:'VericubicMaster', location:'descarga'})">
         ⬇️ Descargar VERICUBIC_MASTER.apk
       </a>
       <p style="margin-top:12px; font-size:13px; color:var(--muted);">
@@ -476,7 +486,7 @@
           <li>Acceso completo 10 días</li>
           <li>Los 5 módulos disponibles</li>
         </ul>
-        <a href="https://github.com/FerArdon/VericubicMaster/releases/latest" target="_blank" class="plan-btn outline">⬇️ Descargar gratis</a>
+        <a href="https://github.com/FerArdon/VericubicMaster/releases/latest" target="_blank" class="plan-btn outline" onclick="gtag('event','download_click',{product:'VericubicMaster', location:'planes'})">⬇️ Descargar gratis</a>
       </div>
 
       <!-- Mensual -->
@@ -609,9 +619,42 @@
     SEDCAF – Servicios de Consultoría y Asesoría Forestal · Honduras<br>
     Ing. Fernando Rafael Ardón Rodríguez<br>
     <a href="https://ferardon.github.io/sedcaf/">SEDCAF</a> ·
-    Desarrollado con Python + Flet · © 2026 SEDCAF
+    Desarrollado con Python + Flet · © 2026 SEDCAF<br>
+    <span style="font-size:13px;opacity:.7;">
+      👁️ <span id="counter-visitas">—</span> visitas ·
+      ⬇️ <span id="counter-descargas">—</span> descargas
+    </span>
   </p>
 </footer>
+
+<script>
+  // Contador de visitas gratuito (countapi.xyz)
+  fetch('https://api.countapi.xyz/hit/ferardon.github.io-vericubicmaster/visits')
+    .then(r => r.json())
+    .then(data => {
+      var el = document.getElementById('counter-visitas');
+      if (el) el.textContent = data.value ? data.value.toLocaleString('es-HN') : '1';
+    })
+    .catch(() => {
+      var el = document.getElementById('counter-visitas');
+      if (el) el.textContent = '—';
+    });
+
+  // Descargas reales desde GitHub Releases API
+  fetch('https://api.github.com/repos/FerArdon/VericubicMaster/releases')
+    .then(r => r.json())
+    .then(releases => {
+      var total = releases.reduce(function(sum, rel) {
+        return sum + rel.assets.reduce(function(s, a) { return s + a.download_count; }, 0);
+      }, 0);
+      var el = document.getElementById('counter-descargas');
+      if (el) el.textContent = total.toLocaleString('es-HN');
+    })
+    .catch(() => {
+      var el = document.getElementById('counter-descargas');
+      if (el) el.textContent = '—';
+    });
+</script>
 
 <script>
   const observer = new IntersectionObserver((entries) => {
